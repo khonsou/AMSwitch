@@ -1,4 +1,4 @@
-//! AM App Switch — M0 前台应用检测 Demo（Windows only）
+//! AM Profile Switch — M0 前台应用检测 Demo（Windows only）
 //!
 //! 机制：SetWinEventHook + EVENT_SYSTEM_FOREGROUND，事件驱动、零轮询。
 //! 运行：cargo run --release，然后随便切换窗口，终端实时打印前台应用。

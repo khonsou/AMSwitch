@@ -1,4 +1,4 @@
-# AM App Switch（暂名）初期 PRD v0.3.7
+# AM Profile Switch 初期 PRD v0.3.8
 
 **状态**：立项评审稿（QA 已闭环，协议基线已获社区实证）｜ **平台**：Windows 10/11（仅 Win）｜ **负责人**：软件产品
 **关联产品**：AM Infinity .97 / AM Infinity .100（鼠标）、BE745 / BD75（键盘，及后续支持板载配置的全部 AM 设备）
@@ -29,6 +29,8 @@
 > **v0.3.5 → v0.3.6**（GUI 评审反馈）：规则可删除——入口在规则行内，**两步确认、不弹窗**（删除成本低：配置本体在设备板载，规则只是引用，重建容易）；**删除正在生效的规则 = 立即回落默认配置**（规则消失等价于不再命中）。预置规则同样可删，预置包更新**不得复活**用户已删条目（tombstone 记录）
 >
 > **v0.3.6 → v0.3.7**（GUI 评审反馈）：删除入口从「展开后的规则体内」移到**规则行尾 ✕**（常显低透明、悬停高亮）——体内首屏不可发现，评审实测"没看见"。职责分层就此定型：**管理动作在行头**（启用开关、删除），**配置动作在展开的体内**（每台设备切到哪个配置）
+>
+> **v0.3.7 → v0.3.8**（定名）：产品定名 **AM Profile Switch**，去掉「暂名」。命名理由：被切换的对象是板载配置（profile），App 只是触发条件，名字说主语；与 G HUB / Synapse / SteelSeries 的「profile」词汇一致，玩家零教育成本；避开 AM Switch 与 Nintendo Switch、机械轴（switch）的双重歧义。核心 crate 相应更名 `am-profile-switch-core`，GUI 交互稿、仓库文档同步
 
 ---
 
@@ -222,7 +224,7 @@
 │  WebView2 UI（复用网页驱动前端技术栈）                              │
 │    · 规则管理 / 设备台账 / 切换历史 / 设置                          │
 │        │  tauri.invoke / event                                     │
-│  am-switch-core（独立 Rust crate，UI 无关，可整体迁入 AM Master）  │
+│  am-profile-switch-core（独立 Rust crate，可迁入 AM Master）        │
 │    ├─ ForegroundMonitor   SetWinEventHook(EVENT_SYSTEM_FOREGROUND)│
 │    │                      【M0 验证件 #1 已完成编译验证】           │
 │    ├─ DeviceManager       hidapi 枚举 + WM_DEVICECHANGE 热插拔     │

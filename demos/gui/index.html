@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AM App Switch · GUI 交互稿 — 配置方式与默认配置</title>
+<title>AM Profile Switch · GUI 交互稿 — 配置方式与默认配置</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -269,7 +269,7 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
 <div class="stage">
 
   <header class="page-head">
-    <div class="eyebrow" data-i18n="eyebrow">AM App Switch · GUI 交互稿 v0.3</div>
+    <div class="eyebrow" data-i18n="eyebrow">AM Profile Switch · GUI 交互稿 v0.3</div>
     <h1 data-i18n="h1">进游戏切配置，出游戏回默认，没了</h1>
     <p data-i18n="headDesc">这是 Win 端常驻工具的可交互 H5 demo（数据为模拟）。消费者需要理解的全部逻辑就一句：进入游戏，鼠标和键盘各切到一个板载配置；退出游戏，一切回到默认配置。下面窗口里的按钮都可以点。</p>
     <div class="howto">
@@ -284,7 +284,7 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
   <div class="win" id="win">
     <div class="win-bar">
       <span class="win-logo"></span>
-      <span class="win-title">AM App Switch</span>
+      <span class="win-title">AM Profile Switch</span>
       <span class="win-ver">v0.1.0-demo</span>
       <span class="win-demo-tag" data-i18n="demoTag">模拟数据</span>
       <button class="lang-toggle" id="btn-lang" title="Switch language / 切换语言">EN</button>
@@ -306,7 +306,7 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
     <section class="view" id="view-status">
       <div class="hero-status">
         <div class="hs-main" id="hs-main">待命 · 全部设备处于默认配置</div>
-        <div class="hs-sub" id="hs-sub">AM App Switch 正在后台监听前台程序</div>
+        <div class="hs-sub" id="hs-sub">AM Profile Switch 正在后台监听前台程序</div>
       </div>
       <div class="pipe-sec">
         <div class="sec-label" data-i18n="secPipe">实时链路 · FOREGROUND → RULE → DEVICES</div>
@@ -479,8 +479,8 @@ const state = { fg:{exe:'explorer.exe', title:'桌面', titleEn:'Desktop', deskt
 const PROFILE_EN = {'Default':'Default','办公':'Office','日常':'Daily','游戏':'Gaming'};
 const I18N = {
 zh:{
-  docTitle:'AM App Switch · GUI 交互稿 — 配置方式与默认配置',
-  eyebrow:'AM App Switch · GUI 交互稿 v0.3',
+  docTitle:'AM Profile Switch · GUI 交互稿 — 配置方式与默认配置',
+  eyebrow:'AM Profile Switch · GUI 交互稿 v0.3',
   h1:'进游戏切配置，出游戏回默认，没了',
   headDesc:'这是 Win 端常驻工具的可交互 H5 demo（数据为模拟）。消费者需要理解的全部逻辑就一句：进入游戏，鼠标和键盘各切到一个板载配置；退出游戏，一切回到默认配置。下面窗口里的按钮都可以点。',
   how1:'<b>01</b> 默认落在「规则」页：配置方式和默认配置都在这',
@@ -489,7 +489,7 @@ zh:{
   how4:'<b>04</b> 点「＋ 添加游戏」只选程序；每台设备切到什么，在规则行里配',
   demoTag:'模拟数据', ariaMin:'最小化', ariaMax:'最大化', ariaClose:'关闭',
   tabRules:'规则', tabStatus:'状态', tabSettings:'设置',
-  heroIdle:'待命 · 全部设备处于默认配置', heroIdleSub:'AM App Switch 正在后台监听前台程序',
+  heroIdle:'待命 · 全部设备处于默认配置', heroIdleSub:'AM Profile Switch 正在后台监听前台程序',
   heroActive:'「{name}」规则生效中', heroActiveSub:'退出游戏后，全部设备自动回到默认配置',
   secPipe:'实时链路 · FOREGROUND → RULE → DEVICES', kFg:'前台程序', kRule:'命中规则', kDev:'设备执行',
   fgDesktopSub:'桌面 · 未命中任何规则', ruleNone:'默认配置', ruleNoneSub:'无规则命中 · 全部设备回落',
@@ -529,7 +529,7 @@ zh:{
   manualExe:'手动选择 exe…', manualExeSub:'游戏还没运行过也能配', manualPicked:'手动选择', addedTag:'已添加',
   agoJust:'刚刚', agoS:'{s} 秒前', agoM:'{m} 分钟前',
   vSwitch:'切换', vFallback:'回落', vReapply:'补切',
-  logBoot:'BOOT  am-switch-core v0.1.0-demo · 纯用户态进程',
+  logBoot:'BOOT  am-profile-switch-core v0.1.0-demo · 纯用户态进程',
   logHook:'HOOK  SetWinEventHook · EVENT_SYSTEM_FOREGROUND 已挂接（事件驱动 · 零轮询）',
   logEnum:'HID   枚举厂商配置接口 · 3 台在线 / BD75 离线',
   logRules:'RULE  加载 rules.json · {n} 条规则 + 默认配置回落',
@@ -560,8 +560,8 @@ zh:{
   logDelFallback:'RULE  生效中的规则被删除 · 全部设备回落默认配置',
 },
 en:{
-  docTitle:'AM App Switch · GUI Interactive Demo — Rules & Defaults',
-  eyebrow:'AM App Switch · GUI Interactive Demo v0.3',
+  docTitle:'AM Profile Switch · GUI Interactive Demo — Rules & Defaults',
+  eyebrow:'AM Profile Switch · GUI Interactive Demo v0.3',
   h1:'Game in, profiles switch. Game out, back to default. That\'s it.',
   headDesc:'An interactive H5 demo of the Windows tray companion (mock data). Everything a user needs to know fits in one sentence: enter a game — mouse and keyboard each switch to an onboard profile; exit the game — everything returns to default. Every button in the window below is clickable.',
   how1:'<b>01</b> Lands on Rules: profiles and the default fallback live here',
@@ -570,7 +570,7 @@ en:{
   how4:'<b>04</b> "+ Add game" only picks the app; per-device profiles are set in the rule row',
   demoTag:'MOCK DATA', ariaMin:'Minimize', ariaMax:'Maximize', ariaClose:'Close',
   tabRules:'Rules', tabStatus:'Status', tabSettings:'Settings',
-  heroIdle:'Standby · all devices on default profiles', heroIdleSub:'AM App Switch is watching the foreground app in the background',
+  heroIdle:'Standby · all devices on default profiles', heroIdleSub:'AM Profile Switch is watching the foreground app in the background',
   heroActive:'Rule "{name}" is active', heroActiveSub:'Exit the game and every device returns to default',
   secPipe:'LIVE PIPELINE · FOREGROUND → RULE → DEVICES', kFg:'Foreground', kRule:'Rule match', kDev:'Devices',
   fgDesktopSub:'Desktop · no rule matched', ruleNone:'Default', ruleNoneSub:'No rule hit · all devices fall back',
@@ -610,7 +610,7 @@ en:{
   manualExe:'Choose exe manually…', manualExeSub:'Works even if the game never ran', manualPicked:'manual pick', addedTag:'Added',
   agoJust:'just now', agoS:'{s}s ago', agoM:'{m}m ago',
   vSwitch:'Switch', vFallback:'Fallback', vReapply:'Re-apply',
-  logBoot:'BOOT  am-switch-core v0.1.0-demo · pure user-mode process',
+  logBoot:'BOOT  am-profile-switch-core v0.1.0-demo · pure user-mode process',
   logHook:'HOOK  SetWinEventHook · EVENT_SYSTEM_FOREGROUND hooked (event-driven · zero polling)',
   logEnum:'HID   enumerating vendor config interfaces · 3 online / BD75 offline',
   logRules:'RULE  loaded rules.json · {n} rules + default fallback',

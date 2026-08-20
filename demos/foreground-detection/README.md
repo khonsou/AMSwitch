@@ -1,6 +1,6 @@
 # AM 前台应用检测 Demo（M0 验证件 #1）
 
-对应《AM App Switch 初期 PRD v0.2》的 **F1 前台应用检测**：用 `SetWinEventHook` 监听 `EVENT_SYSTEM_FOREGROUND`，**事件驱动、零轮询**，前台窗口一切换就实时打印应用名。
+对应《AM Profile Switch 初期 PRD》的 **F1 前台应用检测**：用 `SetWinEventHook` 监听 `EVENT_SYSTEM_FOREGROUND`，**事件驱动、零轮询**，前台窗口一切换就实时打印应用名。
 
 源码已通过对 Windows 目标（`x86_64-pc-windows-gnu`）的编译验证，零警告。
 
@@ -28,7 +28,7 @@ AM 前台检测 Demo —— 切换任意窗口试试（Ctrl+C 退出）
 
 [#  1 |    0.0s] explorer.exe             pid=8612
 [#  2 |    3.2s] cs2.exe                  pid=15204  Counter-Strike 2
-[#  3 |    8.7s] chrome.exe               pid=2108   AM App Switch PRD - Google Chrome
+[#  3 |    8.7s] chrome.exe               pid=2108   AM Profile Switch PRD - Google Chrome
 [#  4 |   12.1s] cs2.exe                  pid=15204  Counter-Strike 2
 ```
 
