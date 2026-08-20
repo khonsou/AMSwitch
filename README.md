@@ -36,3 +36,7 @@ AngryMiao community members are welcome to join: issues and PRs in **English or 
 ## Acknowledgements
 
 The HID protocol baseline builds on the community reverse-engineering project [am97-cli](https://github.com/TheMasterDingo/am97-cli) (MIT) — many thanks to TheMasterDingo.
+
+## License
+
+[MIT](LICENSE) © 2026 AngryMiao.

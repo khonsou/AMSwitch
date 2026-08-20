@@ -36,3 +36,7 @@ demos/gui/index.html            GUI 交互稿：单文件 H5，浏览器直接�
 ## 致谢
 
 HID 协议基线参考社区逆向成果 [am97-cli](https://github.com/TheMasterDingo/am97-cli)（MIT），感谢作者 TheMasterDingo。
+
+## 开源协议
+
+[MIT](LICENSE) © 2026 AngryMiao。
