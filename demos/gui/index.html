@@ -193,6 +193,11 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
 .profile-select:hover{border-color:var(--accent2)}
 .rb-note{grid-column:1/-1;font-family:var(--mono);font-size:10px;color:var(--text3);border-top:1px dashed var(--border-dim);padding-top:10px;margin-top:2px}
 .rb-note b{color:var(--accent2);font-weight:500}
+.rb-foot{grid-column:1/-1;display:flex;align-items:center;gap:12px;border-top:1px dashed var(--border-dim);padding-top:10px;margin-top:2px}
+.rb-foot .rb-note{grid-column:auto;border-top:none;padding-top:0;margin-top:0;flex:1}
+.del-btn{font-family:var(--mono);font-size:10.5px;color:var(--text3);border:1px solid transparent;border-radius:4px;padding:5px 10px;transition:color .2s,border-color .2s,background .2s;white-space:nowrap}
+.del-btn:hover{color:var(--err);border-color:rgba(244,67,54,.4)}
+.del-btn.confirm{color:#fff;background:var(--err);border-color:var(--err)}
 .json-box{background:var(--panel2);border:1px solid var(--border-dim);border-radius:8px;padding:12px;font-family:var(--mono);font-size:10.5px;line-height:1.75;color:var(--text2);overflow-x:auto;align-self:start}
 .json-box .jk{color:var(--accent2)}
 .json-box .jv{color:var(--text)}
@@ -551,6 +556,9 @@ zh:{
   logAdded:'RULE  新增 rule:{id} · 已写入 rules.json · 全部设备暂为默认配置，在下方规则行里配置',
   logDiagOk:'DIAG  诊断信息已复制到剪贴板', logDiagFail:'DIAG  复制失败（demo 环境限制）',
   logLang:'I18N  界面语言 → 中文',
+  delRule:'删除规则', delConfirm:'确认删除？',
+  logDeleted:'RULE  已删除 rule:{id} · 已从 rules.json 移除',
+  logDelFallback:'RULE  生效中的规则被删除 · 全部设备回落默认配置',
 },
 en:{
   docTitle:'AM App Switch · GUI Interactive Demo — Rules & Defaults',
@@ -629,6 +637,9 @@ en:{
   logAdded:'RULE  added rule:{id} · written to rules.json · all devices on Default for now — configure in the rule row below',
   logDiagOk:'DIAG  diagnostics copied to clipboard', logDiagFail:'DIAG  copy failed (demo sandbox)',
   logLang:'I18N  UI language → English',
+  delRule:'Delete rule', delConfirm:'Click to confirm',
+  logDeleted:'RULE  deleted rule:{id} · removed from rules.json',
+  logDelFallback:'RULE  active rule deleted · all devices fall back to default',
 }};
 let lang = localStorage.getItem('amswitch-lang') || 'zh';
 const t = (k, vars) => {
@@ -764,7 +775,10 @@ function renderRules(openId){
             <tbody>${bodyRows}</tbody>
           </table>
         </div>
-        <div class="rb-note">${t('rbNote')}</div>
+        <div class="rb-foot">
+          <div class="rb-note">${t('rbNote')}</div>
+          <button class="del-btn" data-del="${r.game_id}">${t('delRule')}</button>
+        </div>
       </div>
     </div>`;
   }).join('');
@@ -1024,8 +1038,42 @@ document.querySelectorAll('.set-row .tgl').forEach(tg=>{
   tg.addEventListener('keydown', e=>{ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); flip(); }});
 });
 
+/* 删除规则：两步确认、不弹窗；删除正在生效的规则 = 立即回落默认配置 */
+async function deleteRule(gid){
+  const i = rules.findIndex(r=>r.game_id===gid);
+  if(i<0) return;
+  const r = rules[i];
+  rules.splice(i,1);
+  logLine(t('logDeleted',{id:gid}), 'warn');
+  if(state.activeRule===r && !state.busy){
+    state.activeRule = null;
+    renderPipeline(null);
+    logLine(t('logDelFallback'), 'warn');
+    renderRules(null);
+    const plan = DEVICES.filter(d=>r.apply[d.id]!=null).map(d=>({d, to:DEFAULT_PROFILE}));
+    state.busy = true; setSimButtons();
+    await runCascade(plan, 'vFallback');
+    renderDevList(); renderPipeline(null);
+    state.busy = false; setSimButtons();
+    return;
+  }
+  if(state.activeRule===r) state.activeRule = null; /* 忙时只摘规则，进行中的级联自行收尾 */
+  renderRules(currentOpenRule());
+}
 /* 规则页交互（事件委托） */
 $('rule-list').addEventListener('click', e=>{
+  const del = e.target.closest('[data-del]');
+  if(del){
+    if(!del.classList.contains('confirm')){
+      del.classList.add('confirm');
+      del.textContent = t('delConfirm');
+      del._tm = setTimeout(()=>{ if(del.isConnected){ del.classList.remove('confirm'); del.textContent = t('delRule'); } }, 3000);
+      return;
+    }
+    clearTimeout(del._tm);
+    deleteRule(del.dataset.del);
+    return;
+  }
   const tgl = e.target.closest('[data-toggle]');
   if(tgl){
     e.stopPropagation();
