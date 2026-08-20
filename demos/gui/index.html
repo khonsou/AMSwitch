@@ -74,6 +74,8 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
 .win-title{font-weight:600;font-size:12.5px}
 .win-ver{font-family:var(--mono);font-size:10px;color:var(--text3);border:1px solid var(--border-dim);border-radius:3px;padding:1px 6px}
 .win-demo-tag{font-family:var(--mono);font-size:10px;color:var(--warn);border:1px dashed rgba(255,193,7,.4);border-radius:3px;padding:1px 6px}
+.lang-toggle{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--text2);border:1px solid var(--border-dim);border-radius:3px;padding:2px 8px;transition:border-color .2s,color .2s}
+.lang-toggle:hover{border-color:var(--accent2);color:var(--accent2)}
 .win-bar .sp{flex:1}
 .win-ctl{display:flex;gap:2px}
 .win-ctl button{width:34px;height:24px;display:grid;place-items:center;border-radius:4px;color:var(--text2);transition:background .2s}
@@ -263,14 +265,14 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
 <div class="stage">
 
   <header class="page-head">
-    <div class="eyebrow">AM App Switch · GUI 交互稿 v0.2</div>
-    <h1>进游戏切配置，出游戏回默认，没了</h1>
-    <p>这是 Win 端常驻工具的可交互 H5 demo（数据为模拟）。消费者需要理解的全部逻辑就一句：进入游戏，鼠标和键盘各切到一个板载配置；退出游戏，一切回到默认配置。下面窗口里的按钮都可以点。</p>
+    <div class="eyebrow" data-i18n="eyebrow">AM App Switch · GUI 交互稿 v0.3</div>
+    <h1 data-i18n="h1">进游戏切配置，出游戏回默认，没了</h1>
+    <p data-i18n="headDesc">这是 Win 端常驻工具的可交互 H5 demo（数据为模拟）。消费者需要理解的全部逻辑就一句：进入游戏，鼠标和键盘各切到一个板载配置；退出游戏，一切回到默认配置。下面窗口里的按钮都可以点。</p>
     <div class="howto">
-      <span><b>01</b> 默认落在「规则」页：配置方式和默认配置都在这</span>
-      <span><b>02</b> 去「状态」页点「启动 cs2.exe」看切换链路</span>
-      <span><b>03</b> 点「插入 BD75」看离线设备容错</span>
-      <span><b>04</b> 点「＋ 添加游戏」只选程序；每台设备切到什么，在规则行里配</span>
+      <span data-i18n="how1"><b>01</b> 默认落在「规则」页：配置方式和默认配置都在这</span>
+      <span data-i18n="how2"><b>02</b> 去「状态」页点「启动 cs2.exe」看切换链路</span>
+      <span data-i18n="how3"><b>03</b> 点「插入 BD75」看离线设备容错</span>
+      <span data-i18n="how4"><b>04</b> 点「＋ 添加游戏」只选程序；每台设备切到什么，在规则行里配</span>
     </div>
   </header>
 
@@ -280,19 +282,20 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
       <span class="win-logo"></span>
       <span class="win-title">AM App Switch</span>
       <span class="win-ver">v0.1.0-demo</span>
-      <span class="win-demo-tag">模拟数据</span>
+      <span class="win-demo-tag" data-i18n="demoTag">模拟数据</span>
+      <button class="lang-toggle" id="btn-lang" title="Switch language / 切换语言">EN</button>
       <span class="sp"></span>
       <div class="win-ctl">
-        <button aria-label="最小化"><svg viewBox="0 0 10 10"><path d="M1 5h8"/></svg></button>
-        <button aria-label="最大化"><svg viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7"/></svg></button>
-        <button aria-label="关闭"><svg viewBox="0 0 10 10"><path d="M1 1l8 8M9 1l-8 8"/></svg></button>
+        <button data-i18n-aria="ariaMin" aria-label="最小化"><svg viewBox="0 0 10 10"><path d="M1 5h8"/></svg></button>
+        <button data-i18n-aria="ariaMax" aria-label="最大化"><svg viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7"/></svg></button>
+        <button data-i18n-aria="ariaClose" aria-label="关闭"><svg viewBox="0 0 10 10"><path d="M1 1l8 8M9 1l-8 8"/></svg></button>
       </div>
     </div>
 
     <div class="win-tabs" id="tabs">
-      <button data-tab="rules" class="on">规则</button>
-      <button data-tab="status">状态</button>
-      <button data-tab="settings">设置</button>
+      <button data-tab="rules" class="on" data-i18n="tabRules">规则</button>
+      <button data-tab="status" data-i18n="tabStatus">状态</button>
+      <button data-tab="settings" data-i18n="tabSettings">设置</button>
     </div>
 
     <!-- ===== 状态页 ===== -->
@@ -302,22 +305,22 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
         <div class="hs-sub" id="hs-sub">AM App Switch 正在后台监听前台程序</div>
       </div>
       <div class="pipe-sec">
-        <div class="sec-label">实时链路 · FOREGROUND → RULE → DEVICES</div>
+        <div class="sec-label" data-i18n="secPipe">实时链路 · FOREGROUND → RULE → DEVICES</div>
         <div class="pipe">
           <div class="pnode" id="pn-fg">
-            <div class="k">前台程序</div>
+            <div class="k" data-i18n="kFg">前台程序</div>
             <div class="v" id="pv-fg">explorer.exe</div>
             <div class="s" id="pv-fg-sub">桌面 · 未命中任何规则</div>
           </div>
           <div class="pipe-arrow">→</div>
           <div class="pnode" id="pn-rule">
-            <div class="k">命中规则</div>
+            <div class="k" data-i18n="kRule">命中规则</div>
             <div class="v" id="pv-rule">默认配置</div>
             <div class="s" id="pv-rule-sub">无规则命中 · 全部设备回落</div>
           </div>
           <div class="pipe-arrow">→</div>
           <div class="pnode" id="pn-dev">
-            <div class="k">设备执行</div>
+            <div class="k" data-i18n="kDev">设备执行</div>
             <div class="v" id="pv-dev">待命</div>
             <div class="s" id="pv-dev-sub">4 台登记 · 3 台在线</div>
           </div>
@@ -326,25 +329,25 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
       </div>
 
       <div class="sim">
-        <span class="tag">DEMO 模拟器 · 非产品 UI</span>
-        <button class="sbtn" id="btn-cs2">启动 cs2.exe</button>
-        <button class="sbtn" id="btn-val">启动 VALORANT</button>
-        <button class="sbtn ghost" id="btn-exit">退出游戏回桌面</button>
+        <span class="tag" data-i18n="simTag">DEMO 模拟器 · 非产品 UI</span>
+        <button class="sbtn" id="btn-cs2" data-i18n="simCs2">启动 cs2.exe</button>
+        <button class="sbtn" id="btn-val" data-i18n="simVal">启动 VALORANT</button>
+        <button class="sbtn ghost" id="btn-exit" data-i18n="simExit">退出游戏回桌面</button>
         <button class="sbtn ghost" id="btn-bd75">插入 BD75</button>
         <span class="pin" style="top:-9px;right:-9px">6</span>
       </div>
 
       <div class="dev-sec">
-        <div class="sec-label">设备 · 当前配置 · 切换结果（并行下发，单机失败不阻塞）</div>
+        <div class="sec-label" data-i18n="secDev">设备 · 当前配置 · 切换结果（并行下发，单机失败不阻塞）</div>
         <div class="dev-head">
-          <span></span><span>设备</span><span>类别</span><span>当前配置</span><span>结果</span>
+          <span></span><span data-i18n="dhDev">设备</span><span data-i18n="dhType">类别</span><span data-i18n="dhCur">当前配置</span><span data-i18n="dhRes">结果</span>
         </div>
         <div id="dev-list"></div>
         <span class="pin" style="bottom:6px;right:10px">4</span>
       </div>
 
       <div class="log-sec">
-        <div class="sec-label">切换日志 · 失败场景全量上报（匿名遥测）</div>
+        <div class="sec-label" data-i18n="secLog">切换日志 · 失败场景全量上报（匿名遥测）</div>
         <div class="log" id="log"></div>
         <span class="pin" style="bottom:10px;right:10px">5</span>
       </div>
@@ -353,12 +356,12 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
     <!-- ===== 规则页 ===== -->
     <section class="view on" id="view-rules">
       <div class="rule-tools">
-        <span class="hint">规则 = <b style="color:var(--accent2)">游戏</b> → <b style="color:var(--accent2)">每台设备各切到一个板载配置</b>。退出游戏，全部回默认。</span>
-        <button class="add-btn" id="btn-add-rule">＋ 添加游戏</button>
+        <span class="hint" data-i18n="rulesHint">规则 = <b style="color:var(--accent2)">游戏</b> → <b style="color:var(--accent2)">每台设备各切到一个板载配置</b>。退出游戏，全部回默认。</span>
+        <button class="add-btn" id="btn-add-rule" data-i18n="btnAdd">＋ 添加游戏</button>
       </div>
       <div class="default-card" id="default-card">
-        <div class="dt">默认配置 · 唯一的回落目标</div>
-        <div class="dd">进游戏：鼠标键盘切到规则指定的配置；退出游戏：全部在线设备回到这里。没有逐规则的还原关系，用户不用记任何对应关系。桌面、浏览器、任何未配置的 app 都按未命中处理。</div>
+        <div class="dt" data-i18n="defTitle">默认配置 · 唯一的回落目标</div>
+        <div class="dd" data-i18n="defDesc">进游戏：鼠标键盘切到规则指定的配置；退出游戏：全部在线设备回到这里。没有逐规则的还原关系，用户不用记任何对应关系。桌面、浏览器、任何未配置的 app 都按未命中处理。</div>
         <div class="default-slots" id="default-slots"></div>
         <span class="pin" style="top:-9px;right:-9px">2</span>
       </div>
@@ -369,17 +372,17 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
     <section class="view" id="view-settings">
       <div class="set-row">
         <span class="tgl on" data-set="autostart" tabindex="0"><svg viewBox="0 0 10 10"><path d="M1.5 5.5l2.5 2.5 4.5-5"/></svg></span>
-        <div><div class="sr-t">开机自启</div><div class="sr-d">托盘常驻，不占任务栏。常驻内存目标 ≤ 60MB，空闲 CPU ≤ 0.5%。</div></div>
+        <div><div class="sr-t" data-i18n="setAutoT">开机自启</div><div class="sr-d" data-i18n="setAutoD">托盘常驻，不占任务栏。常驻内存目标 ≤ 60MB，空闲 CPU ≤ 0.5%。</div></div>
       </div>
       <div class="set-row">
         <span class="tgl on" data-set="telemetry" tabindex="0"><svg viewBox="0 0 10 10"><path d="M1.5 5.5l2.5 2.5 4.5-5"/></svg></span>
-        <div><div class="sr-t">匿名遥测：切换失败日志</div><div class="sr-d">只上报游戏 ID、设备型号、错误码与固件版本，不含窗口标题、路径、使用时长。失败全量上报，成功只计数——目标是先于售后发现问题。可随时关闭。</div></div>
+        <div><div class="sr-t" data-i18n="setTelT">匿名遥测：切换失败日志</div><div class="sr-d" data-i18n="setTelD">只上报游戏 ID、设备型号、错误码与固件版本，不含窗口标题、路径、使用时长。失败全量上报，成功只计数——目标是先于售后发现问题。可随时关闭。</div></div>
       </div>
       <div class="set-row">
-        <button class="btn dim" id="btn-diag" style="margin-top:2px;white-space:nowrap">复制诊断信息</button>
-        <div><div class="sr-t">诊断信息（售后支持用）</div><div class="sr-d">一键复制规则、设备与固件版本、最近日志——社区测试反馈或售后排障时发给我们即可。rules.json 不在界面直接展示。</div></div>
+        <button class="btn dim" id="btn-diag" style="margin-top:2px;white-space:nowrap" data-i18n="btnDiag">复制诊断信息</button>
+        <div><div class="sr-t" data-i18n="setDiagT">诊断信息（售后支持用）</div><div class="sr-d" data-i18n="setDiagD">一键复制规则、设备与固件版本、最近日志——社区测试反馈或售后排障时发给我们即可。rules.json 不在界面直接展示。</div></div>
       </div>
-      <div class="ac-note">
+      <div class="ac-note" data-i18n="acNote">
         <b>反作弊安全：</b>纯用户态进程，不注入、不读游戏内存、不做键鼠 hook；只通过标准 HID API 向自家设备配置接口发 <span class="mono">Feature Report 0x14</span>。发送路径仅放行 3 条白名单命令，4 条破坏性命令 ID 硬编码拦截。
       </div>
     </section>
@@ -387,57 +390,57 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
 
   <!-- ================= 注释栏 ================= -->
   <aside class="anno-col">
-    <div class="anno-title">这张稿子要说明白的事</div>
+    <div class="anno-title" data-i18n="annoTitle">这张稿子要说明白的事</div>
     <div class="anno" data-goto="rules" data-flash="rule-list">
       <span class="n">1</span>
-      <div><div class="at">规则页：消费者的首页</div>
-      <div class="ad">页签顺序 = 动手频率。两层模型：游戏 → 每台设备各自的一个板载配置。「添加游戏」弹层只负责选程序；每台设备切到什么只在规则行里配——一个游戏的配置全 app 只有一个入口。查重按 exe 名：已覆盖的标「已添加」，重复添加直接定位到已有规则。</div>
+      <div><div class="at" data-i18n="a1t">规则页：消费者的首页</div>
+      <div class="ad" data-i18n="a1d">页签顺序 = 动手频率。两层模型：游戏 → 每台设备各自的一个板载配置。「添加游戏」弹层只负责选程序；每台设备切到什么只在规则行里配——一个游戏的配置全 app 只有一个入口。查重按 exe 名：已覆盖的标「已添加」，重复添加直接定位到已有规则。</div>
       <div class="ar">PRD §F1 / F2 · QA-2 · QA-8/9</div></div>
     </div>
     <div class="anno" data-goto="rules" data-flash="default-card">
       <span class="n">2</span>
-      <div><div class="at">默认配置：唯一的回落目标</div>
-      <div class="ad">退出任何游戏都回到这里，没有例外、没有逐规则的还原关系。用户只需记住这一个概念。</div>
+      <div><div class="at" data-i18n="a2t">默认配置：唯一的回落目标</div>
+      <div class="ad" data-i18n="a2d">退出任何游戏都回到这里，没有例外、没有逐规则的还原关系。用户只需记住这一个概念。</div>
       <div class="ar">PRD §F2 / §6 · v0.3.2 简化</div></div>
     </div>
     <div class="anno" data-goto="status" data-flash="pn-fg">
       <span class="n">3</span>
-      <div><div class="at">状态页：回答「它在工作吗」</div>
-      <div class="ad">一句话状态 + 流水线 + 设备清单，给消费者看的部分到此为止。它不是用户必须理解的页面，是安心剂。</div>
+      <div><div class="at" data-i18n="a3t">状态页：回答「它在工作吗」</div>
+      <div class="ad" data-i18n="a3d">一句话状态 + 流水线 + 设备清单，给消费者看的部分到此为止。它不是用户必须理解的页面，是安心剂。</div>
       <div class="ar">PRD §F1 / F6</div></div>
     </div>
     <div class="anno" data-goto="status" data-flash="dev-list">
       <span class="n">4</span>
-      <div><div class="at">容错：设备离线＝静默跳过</div>
-      <div class="ad">BD75 默认离线。切换时它被跳过、记日志、不弹错；插入后若正处于游戏中，自动补切。</div>
+      <div><div class="at" data-i18n="a4t">容错：设备离线＝静默跳过</div>
+      <div class="ad" data-i18n="a4d">BD75 默认离线。切换时它被跳过、记日志、不弹错；插入后若正处于游戏中，自动补切。</div>
       <div class="ar">PRD §G3 / §7</div></div>
     </div>
     <div class="anno" data-goto="status" data-flash="log">
       <span class="n">5</span>
-      <div><div class="at">日志：给测试和支持，不给消费者</div>
-      <div class="ad">失败事件匿名遥测自动上报；售后场景用设置页的「复制诊断信息」。三层问题发现链路，先于售后工单。</div>
+      <div><div class="at" data-i18n="a5t">日志：给测试和支持，不给消费者</div>
+      <div class="ad" data-i18n="a5d">失败事件匿名遥测自动上报；售后场景用设置页的「复制诊断信息」。三层问题发现链路，先于售后工单。</div>
       <div class="ar">PRD §F5 / G6</div></div>
     </div>
     <div class="anno" data-goto="status" data-flash="btn-cs2">
       <span class="n">6</span>
-      <div><div class="at">模拟器只是演示工具</div>
-      <div class="ad">真实产品里这些按钮不存在——游戏的启动退出、设备的插拔，都由 Windows 事件自动感知。</div>
+      <div><div class="at" data-i18n="a6t">模拟器只是演示工具</div>
+      <div class="ad" data-i18n="a6d">真实产品里这些按钮不存在——游戏的启动退出、设备的插拔，都由 Windows 事件自动感知。</div>
       <div class="ar">SetWinEventHook · WM_DEVICECHANGE</div></div>
     </div>
-    <div class="anno-foot">信息分层：规则在前（动手），状态在后（安心），日志归测试与支持；<br>rules.json 不暴露给消费者，诊断走设置页一键复制；<br>界面只有「产品名 + 板载配置」，槽位号仅是协议层细节。</div>
+    <div class="anno-foot" data-i18n="annoFoot">信息分层：规则在前（动手），状态在后（安心），日志归测试与支持；<br>rules.json 不暴露给消费者，诊断走设置页一键复制；<br>界面只有「产品名 + 板载配置」，槽位号仅是协议层细节；<br>中英双语（标题栏切换），海外评审与产品 i18n 同步验证。</div>
   </aside>
 </div>
 
 <!-- ================= 添加游戏弹窗 ================= -->
 <div class="overlay" id="overlay">
   <div class="modal">
-    <div class="modal-h"><span class="t">添加游戏 / 应用</span><button class="x" id="modal-x">×</button></div>
+    <div class="modal-h"><span class="t" data-i18n="modalTitle">添加游戏 / 应用</span><button class="x" id="modal-x">×</button></div>
     <div class="modal-b">
       <div class="cap-box" id="cap-box"></div>
-      <div class="rb-note" style="margin-top:12px">这里只选「哪个程序」。添加后出现在规则列表，<b>每台设备切到哪个板载配置，在规则行里设置</b>——一个游戏的配置全 app 只有这一个入口。同一个程序不会建出两条规则：已被覆盖的标 <b>已添加</b>，重复添加会直接定位到已有规则。来源三层兜底：<b>预置规则包</b>（开箱即用）→ <b>最近前台历史</b>（玩过即配，自动排除本工具自身）→ <b>手动选择 exe</b>（冷启动也能加）。</div>
+      <div class="rb-note" style="margin-top:12px" data-i18n="modalNote">这里只选「哪个程序」。添加后出现在规则列表，<b>每台设备切到哪个板载配置，在规则行里设置</b>——一个游戏的配置全 app 只有这一个入口。同一个程序不会建出两条规则：已被覆盖的标 <b>已添加</b>，重复添加会直接定位到已有规则。来源三层兜底：<b>预置规则包</b>（开箱即用）→ <b>最近前台历史</b>（玩过即配，自动排除本工具自身）→ <b>手动选择 exe</b>（冷启动也能加）。</div>
     </div>
     <div class="modal-f">
-      <button class="btn dim" id="modal-cancel">取消</button>
+      <button class="btn dim" id="modal-cancel" data-i18n="modalCancel">取消</button>
       <button class="btn solid" id="modal-save">添加</button>
     </div>
   </div>
@@ -446,40 +449,212 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px s
 /* ================= 数据（模拟） ================= */
 /* 界面只暴露「产品名 + 板载配置名」；profiles 数组下标即协议层槽位号，仅为实现细节 */
 const DEVICES = [
-  {id:'m100',  name:'AM Infinity .100', short:'.100',  type:'鼠标',          online:true,  cur:0, profiles:['Default','办公','游戏']},
-  {id:'m97',   name:'AM Infinity .97',  short:'.97',   type:'鼠标',          online:true,  cur:0, profiles:['Default','日常','游戏']},
-  {id:'be745', name:'BE745',            short:'BE745', type:'键盘 · 磁轴',   online:true,  cur:0, profiles:['Default','游戏']},
-  {id:'bd75',  name:'BD75',             short:'BD75',  type:'键盘 · 机械轴', online:false, cur:0, profiles:['Default','游戏']},
+  {id:'m100',  name:'AM Infinity .100', short:'.100',  type:'鼠标',          typeEn:'Mouse',                 online:true,  cur:0, profiles:['Default','办公','游戏']},
+  {id:'m97',   name:'AM Infinity .97',  short:'.97',   type:'鼠标',          typeEn:'Mouse',                 online:true,  cur:0, profiles:['Default','日常','游戏']},
+  {id:'be745', name:'BE745',            short:'BE745', type:'键盘 · 磁轴',   typeEn:'Keyboard · Magnetic',   online:true,  cur:0, profiles:['Default','游戏']},
+  {id:'bd75',  name:'BD75',             short:'BD75',  type:'键盘 · 机械轴', typeEn:'Keyboard · Mechanical', online:false, cur:0, profiles:['Default','游戏']},
 ];
 const dev = id => DEVICES.find(d=>d.id===id);
 
 /* 规则只有 apply：进入游戏切到什么。退出游戏永远回落默认配置，规则不存还原关系 */
 let rules = [
-  {game_id:'cs2',      name:'Counter-Strike 2', match:['cs2.exe'],                    preset:true,  enabled:true, apply:{m100:2,be745:1,bd75:1}},
-  {game_id:'valorant', name:'VALORANT',         match:['VALORANT-Win64-Shipping.exe'],preset:true,  enabled:true, apply:{m97:2,be745:1}},
-  {game_id:'naraka',   name:'永劫无间',          match:['NarakaBladepoint.exe'],       preset:true,  enabled:true, apply:{m100:2,be745:1}},
-  {game_id:'jianying', name:'剪映专业版',        match:['JianyingPro.exe'],            preset:false, enabled:true, apply:{m100:1}},
+  {game_id:'cs2',      name:'Counter-Strike 2', nameEn:'Counter-Strike 2',   match:['cs2.exe'],                    preset:true,  enabled:true, apply:{m100:2,be745:1,bd75:1}},
+  {game_id:'valorant', name:'VALORANT',         nameEn:'VALORANT',           match:['VALORANT-Win64-Shipping.exe'],preset:true,  enabled:true, apply:{m97:2,be745:1}},
+  {game_id:'naraka',   name:'永劫无间',          nameEn:'NARAKA: BLADEPOINT', match:['NarakaBladepoint.exe'],       preset:true,  enabled:true, apply:{m100:2,be745:1}},
+  {game_id:'jianying', name:'剪映专业版',        nameEn:'Jianying Pro',       match:['JianyingPro.exe'],            preset:false, enabled:true, apply:{m100:1}},
 ];
 const GAMES = {
-  cs2:{exe:'cs2.exe', title:'Counter-Strike 2'},
-  val:{exe:'VALORANT-Win64-Shipping.exe', title:'VALORANT'},
+  cs2:{exe:'cs2.exe', title:'Counter-Strike 2', titleEn:'Counter-Strike 2'},
+  val:{exe:'VALORANT-Win64-Shipping.exe', title:'VALORANT', titleEn:'VALORANT'},
 };
 const DEFAULT_PROFILE = 0; /* 全局默认配置：每台设备的 profiles[0] */
-const state = { fg:{exe:'explorer.exe', title:'桌面', desktop:true}, activeRule:null, busy:false };
+const state = { fg:{exe:'explorer.exe', title:'桌面', titleEn:'Desktop', desktop:true}, activeRule:null, busy:false };
+
+/* ================= i18n ================= */
+/* 界面文案（key 字典）+ 模拟数据双语名（profiles/设备类别/游戏名） */
+const PROFILE_EN = {'Default':'Default','办公':'Office','日常':'Daily','游戏':'Gaming'};
+const I18N = {
+zh:{
+  docTitle:'AM App Switch · GUI 交互稿 — 配置方式与默认配置',
+  eyebrow:'AM App Switch · GUI 交互稿 v0.3',
+  h1:'进游戏切配置，出游戏回默认，没了',
+  headDesc:'这是 Win 端常驻工具的可交互 H5 demo（数据为模拟）。消费者需要理解的全部逻辑就一句：进入游戏，鼠标和键盘各切到一个板载配置；退出游戏，一切回到默认配置。下面窗口里的按钮都可以点。',
+  how1:'<b>01</b> 默认落在「规则」页：配置方式和默认配置都在这',
+  how2:'<b>02</b> 去「状态」页点「启动 cs2.exe」看切换链路',
+  how3:'<b>03</b> 点「插入 BD75」看离线设备容错',
+  how4:'<b>04</b> 点「＋ 添加游戏」只选程序；每台设备切到什么，在规则行里配',
+  demoTag:'模拟数据', ariaMin:'最小化', ariaMax:'最大化', ariaClose:'关闭',
+  tabRules:'规则', tabStatus:'状态', tabSettings:'设置',
+  heroIdle:'待命 · 全部设备处于默认配置', heroIdleSub:'AM App Switch 正在后台监听前台程序',
+  heroActive:'「{name}」规则生效中', heroActiveSub:'退出游戏后，全部设备自动回到默认配置',
+  secPipe:'实时链路 · FOREGROUND → RULE → DEVICES', kFg:'前台程序', kRule:'命中规则', kDev:'设备执行',
+  fgDesktopSub:'桌面 · 未命中任何规则', ruleNone:'默认配置', ruleNoneSub:'无规则命中 · 全部设备回落',
+  devStandby:'待命', devInPlace:'已就位', devCount:'{n} 台登记 · {m} 台在线',
+  kindPre:'预置', kindMine:'我的',
+  simTag:'DEMO 模拟器 · 非产品 UI', simCs2:'启动 cs2.exe', simVal:'启动 VALORANT', simExit:'退出游戏回桌面',
+  simBd75In:'插入 BD75', simBd75Out:'拔出 BD75',
+  secDev:'设备 · 当前配置 · 切换结果（并行下发，单机失败不阻塞）',
+  dhDev:'设备', dhType:'类别', dhCur:'当前配置', dhRes:'结果',
+  secLog:'切换日志 · 失败场景全量上报（匿名遥测）',
+  resReady:'就绪', resOffline:'离线 · 不枚举', resSkip:'跳过 · 离线', resAlready:'已是目标配置', resBusy:'切换中…',
+  rulesHint:'规则 = <b style="color:var(--accent2)">游戏</b> → <b style="color:var(--accent2)">每台设备各切到一个板载配置</b>。退出游戏，全部回默认。',
+  btnAdd:'＋ 添加游戏',
+  defTitle:'默认配置 · 唯一的回落目标',
+  defDesc:'进游戏：鼠标键盘切到规则指定的配置；退出游戏：全部在线设备回到这里。没有逐规则的还原关系，用户不用记任何对应关系。桌面、浏览器、任何未配置的 app 都按未命中处理。',
+  badgePre:'预置', badgeMine:'我的', offSkip:'离线 · 将跳过',
+  thDevice:'设备', thEnter:'进入 {name} 时切到',
+  rbNote:'配置列表实时读自设备板载（各设备配置数可以不一致）· 写操作仅 <b>changeProfile</b> 一条 · 改动即时保存 · 退出游戏永远回落默认配置',
+  setAutoT:'开机自启', setAutoD:'托盘常驻，不占任务栏。常驻内存目标 ≤ 60MB，空闲 CPU ≤ 0.5%。',
+  setTelT:'匿名遥测：切换失败日志', setTelD:'只上报游戏 ID、设备型号、错误码与固件版本，不含窗口标题、路径、使用时长。失败全量上报，成功只计数——目标是先于售后发现问题。可随时关闭。',
+  btnDiag:'复制诊断信息', setDiagT:'诊断信息（售后支持用）', setDiagD:'一键复制规则、设备与固件版本、最近日志——社区测试反馈或售后排障时发给我们即可。rules.json 不在界面直接展示。',
+  acNote:'<b>反作弊安全：</b>纯用户态进程，不注入、不读游戏内存、不做键鼠 hook；只通过标准 HID API 向自家设备配置接口发 <span class="mono">Feature Report 0x14</span>。发送路径仅放行 3 条白名单命令，4 条破坏性命令 ID 硬编码拦截。',
+  annoTitle:'这张稿子要说明白的事',
+  a1t:'规则页：消费者的首页',
+  a1d:'页签顺序 = 动手频率。两层模型：游戏 → 每台设备各自的一个板载配置。「添加游戏」弹层只负责选程序；每台设备切到什么只在规则行里配——一个游戏的配置全 app 只有一个入口。查重按 exe 名：已覆盖的标「已添加」，重复添加直接定位到已有规则。',
+  a2t:'默认配置：唯一的回落目标', a2d:'退出任何游戏都回到这里，没有例外、没有逐规则的还原关系。用户只需记住这一个概念。',
+  a3t:'状态页：回答「它在工作吗」', a3d:'一句话状态 + 流水线 + 设备清单，给消费者看的部分到此为止。它不是用户必须理解的页面，是安心剂。',
+  a4t:'容错：设备离线＝静默跳过', a4d:'BD75 默认离线。切换时它被跳过、记日志、不弹错；插入后若正处于游戏中，自动补切。',
+  a5t:'日志：给测试和支持，不给消费者', a5d:'失败事件匿名遥测自动上报；售后场景用设置页的「复制诊断信息」。三层问题发现链路，先于售后工单。',
+  a6t:'模拟器只是演示工具', a6d:'真实产品里这些按钮不存在——游戏的启动退出、设备的插拔，都由 Windows 事件自动感知。',
+  annoFoot:'信息分层：规则在前（动手），状态在后（安心），日志归测试与支持；<br>rules.json 不暴露给消费者，诊断走设置页一键复制；<br>界面只有「产品名 + 板载配置」，槽位号仅是协议层细节；<br>中英双语（标题栏切换），海外评审与产品 i18n 同步验证。',
+  modalTitle:'添加游戏 / 应用', modalCancel:'取消', mAdd:'添加', mView:'查看规则',
+  modalNote:'这里只选「哪个程序」。添加后出现在规则列表，<b>每台设备切到哪个板载配置，在规则行里设置</b>——一个游戏的配置全 app 只有这一个入口。同一个程序不会建出两条规则：已被覆盖的标 <b>已添加</b>，重复添加会直接定位到已有规则。来源三层兜底：<b>预置规则包</b>（开箱即用）→ <b>最近前台历史</b>（玩过即配，自动排除本工具自身）→ <b>手动选择 exe</b>（冷启动也能加）。',
+  capEmptyK:'选择要绑定的程序',
+  capEmptyV:'还没记录到任何前台程序——热门游戏多半已被预置规则覆盖；不在其中的，玩一次再来，或直接手动选择：',
+  capHistK:'从最近前台程序中选择 · 默认选中「上一个」',
+  manualExe:'手动选择 exe…', manualExeSub:'游戏还没运行过也能配', manualPicked:'手动选择', addedTag:'已添加',
+  agoJust:'刚刚', agoS:'{s} 秒前', agoM:'{m} 分钟前',
+  vSwitch:'切换', vFallback:'回落', vReapply:'补切',
+  logBoot:'BOOT  am-switch-core v0.1.0-demo · 纯用户态进程',
+  logHook:'HOOK  SetWinEventHook · EVENT_SYSTEM_FOREGROUND 已挂接（事件驱动 · 零轮询）',
+  logEnum:'HID   枚举厂商配置接口 · 3 台在线 / BD75 离线',
+  logRules:'RULE  加载 rules.json · {n} 条规则 + 默认配置回落',
+  logFg:'HOOK  EVENT_SYSTEM_FOREGROUND · {exe} (pid {pid})',
+  logFgExit:'HOOK  EVENT_SYSTEM_FOREGROUND · explorer.exe（游戏已退出）',
+  logFgSelf:'HOOK  前台变为 am-app-switch.exe · 自身事件忽略，改取最近前台历史',
+  logHit:'RULE  命中 rule:{id}（{kind}）· 逐设备解析目标配置',
+  logMiss:'RULE  未命中 · 使用默认配置',
+  logFallback:'RULE  未命中 · 回落到默认配置',
+  logNoop:'HID   全部设备已在默认配置 · 无需动作',
+  logTransient:'HID   瞬态连接：open → changeProfile → verify → close（单次占用 <200ms）',
+  logSkip:'{dev} SKIP · 设备离线，静默跳过不弹错',
+  logDup:'{dev} 已是「{p}」 · 去重不重复写',
+  logSwitch:'{dev} {verb}「{from}」→「{to}」 · verify ✓ · {ms}ms',
+  logPlug:'PLUG  DBT_DEVICEARRIVAL · BD75 接入 · 瞬态读取配置清单后释放句柄',
+  logUnplug:'PLUG  DBT_DEVICEREMOVECOMPLETE · BD75 拔出 · 句柄已关闭，标记离线',
+  logRePlug:'RULE  当前处于 rule:{id} · 对 BD75 自动补切',
+  logPlugIdle:'BD75  就绪 · 当前无适用规则，维持「{p}」',
+  logEnabled:'RULE  rule:{id} 已启用', logDisabled:'RULE  rule:{id} 已停用',
+  logSaved:'RULE  rule:{id} · {dev} → 「{p}」 · 已保存',
+  logManual:'RULE  手动选择 exe · {path}',
+  logCovered:'RULE  {exe} 已被 rule:{id} 覆盖 · 不新建，已定位到已有规则',
+  logAdded:'RULE  新增 rule:{id} · 已写入 rules.json · 全部设备暂为默认配置，在下方规则行里配置',
+  logDiagOk:'DIAG  诊断信息已复制到剪贴板', logDiagFail:'DIAG  复制失败（demo 环境限制）',
+  logLang:'I18N  界面语言 → 中文',
+},
+en:{
+  docTitle:'AM App Switch · GUI Interactive Demo — Rules & Defaults',
+  eyebrow:'AM App Switch · GUI Interactive Demo v0.3',
+  h1:'Game in, profiles switch. Game out, back to default. That\'s it.',
+  headDesc:'An interactive H5 demo of the Windows tray companion (mock data). Everything a user needs to know fits in one sentence: enter a game — mouse and keyboard each switch to an onboard profile; exit the game — everything returns to default. Every button in the window below is clickable.',
+  how1:'<b>01</b> Lands on Rules: profiles and the default fallback live here',
+  how2:'<b>02</b> Status tab → "Launch cs2.exe" to watch the switch pipeline',
+  how3:'<b>03</b> Click "Plug in BD75" to see offline tolerance',
+  how4:'<b>04</b> "+ Add game" only picks the app; per-device profiles are set in the rule row',
+  demoTag:'MOCK DATA', ariaMin:'Minimize', ariaMax:'Maximize', ariaClose:'Close',
+  tabRules:'Rules', tabStatus:'Status', tabSettings:'Settings',
+  heroIdle:'Standby · all devices on default profiles', heroIdleSub:'AM App Switch is watching the foreground app in the background',
+  heroActive:'Rule "{name}" is active', heroActiveSub:'Exit the game and every device returns to default',
+  secPipe:'LIVE PIPELINE · FOREGROUND → RULE → DEVICES', kFg:'Foreground', kRule:'Rule match', kDev:'Devices',
+  fgDesktopSub:'Desktop · no rule matched', ruleNone:'Default', ruleNoneSub:'No rule hit · all devices fall back',
+  devStandby:'Standby', devInPlace:'Done', devCount:'{n} registered · {m} online',
+  kindPre:'preset', kindMine:'custom',
+  simTag:'DEMO SIMULATOR · NOT PRODUCT UI', simCs2:'Launch cs2.exe', simVal:'Launch VALORANT', simExit:'Quit game to desktop',
+  simBd75In:'Plug in BD75', simBd75Out:'Unplug BD75',
+  secDev:'DEVICES · CURRENT PROFILE · RESULT (PARALLEL, ONE FAILURE BLOCKS NONE)',
+  dhDev:'Device', dhType:'Type', dhCur:'Current', dhRes:'Result',
+  secLog:'SWITCH LOG · FAILURES FULLY REPORTED (ANONYMOUS TELEMETRY)',
+  resReady:'ready', resOffline:'offline · skipped', resSkip:'skipped · offline', resAlready:'already on target', resBusy:'switching…',
+  rulesHint:'Rule = <b style="color:var(--accent2)">game</b> → <b style="color:var(--accent2)">each device switches to one onboard profile</b>. Exit the game, everything returns to default.',
+  btnAdd:'＋ Add game',
+  defTitle:'DEFAULT PROFILES · THE ONLY FALLBACK',
+  defDesc:'Enter a game: mouse and keyboard switch to the rule\'s profiles. Exit: every online device returns here. No per-rule restore mapping to memorize. Desktop, browser, or any unconfigured app simply counts as no match.',
+  badgePre:'PRESET', badgeMine:'CUSTOM', offSkip:'offline · will skip',
+  thDevice:'Device', thEnter:'When {name} starts, switch to',
+  rbNote:'Profile lists are read live from each device (counts may differ) · the only write op is <b>changeProfile</b> · edits save instantly · exiting a game always falls back to default',
+  setAutoT:'Launch at login', setAutoD:'Lives in the tray, off the taskbar. Targets: ≤60MB RAM, ≤0.5% idle CPU.',
+  setTelT:'Anonymous telemetry: failure logs', setTelD:'Only game ID, device model, error code and firmware version — never window titles, paths, or usage time. Failures reported in full, successes only counted. Goal: spot problems before support tickets do. Opt out anytime.',
+  btnDiag:'Copy diagnostics', setDiagT:'Diagnostics (for support)', setDiagD:'One click copies rules, device & firmware versions, and recent logs — send it to us for beta feedback or support. rules.json is never shown in the UI.',
+  acNote:'<b>Anti-cheat safe:</b> a pure user-mode process — no injection, no game-memory reads, no keyboard/mouse hooks. It only sends <span class="mono">Feature Report 0x14</span> to the config interface of our own devices via standard HID APIs. The send path allows 3 whitelisted commands; 4 destructive command IDs are hard-blocked.',
+  annoTitle:'WHAT THIS DEMO NEEDS TO LAND',
+  a1t:'Rules: the consumer\'s home',
+  a1d:'Tab order follows interaction frequency. Two-layer model: game → one onboard profile per device. "Add game" only picks the program; per-device targets are set in the rule row — one game, one place. Dedupe by exe name: covered apps are tagged "Added"; re-adding jumps to the existing rule.',
+  a2t:'Default: the single fallback', a2d:'Quitting any game returns here — no exceptions, no per-rule restore. Users only need to remember this one concept.',
+  a3t:'Status: answering "is it working?"', a3d:'One-sentence status + pipeline + device list — that\'s all consumers see. It\'s not a page users must understand; it\'s reassurance.',
+  a4t:'Tolerance: offline = silent skip', a4d:'BD75 starts offline. Switches skip it, log it, never error; plug it in mid-game and it re-applies automatically.',
+  a5t:'Logs: for QA & support, not consumers', a5d:'Failures auto-report via anonymous telemetry; support uses "Copy diagnostics" in Settings. Three-layer detection, ahead of tickets.',
+  a6t:'The simulator is demo-only', a6d:'These buttons don\'t exist in the real product — game launch/exit and device hotplug are sensed via Windows events.',
+  annoFoot:'Layered info: Rules first (act), Status second (reassure), logs for QA & support;<br>rules.json stays hidden — diagnostics via one-click copy in Settings;<br>the UI speaks only "product + onboard profile"; slot numbers stay protocol-level;<br>bilingual 中/EN (title-bar toggle) — overseas review validates product i18n early.',
+  modalTitle:'Add game / app', modalCancel:'Cancel', mAdd:'Add', mView:'View rule',
+  modalNote:'Only the program is chosen here. Once added it appears in the rule list — <b>which profile each device switches to is set in the rule row</b>, the single place a game\'s devices are configured. One program never spawns two rules: covered ones are tagged <b>Added</b>, and re-adding jumps straight to the existing rule. Three sources, always covered: <b>preset pack</b> (ready out of the box) → <b>recent foreground</b> (play once to add; this tool excludes itself) → <b>pick exe manually</b> (works from a cold start).',
+  capEmptyK:'Choose a program to bind',
+  capEmptyV:'No foreground apps recorded yet — popular games are usually covered by presets. For anything else, play it once and come back, or pick an exe manually:',
+  capHistK:'Pick from recent foreground apps · the previous one is pre-selected',
+  manualExe:'Choose exe manually…', manualExeSub:'Works even if the game never ran', manualPicked:'manual pick', addedTag:'Added',
+  agoJust:'just now', agoS:'{s}s ago', agoM:'{m}m ago',
+  vSwitch:'Switch', vFallback:'Fallback', vReapply:'Re-apply',
+  logBoot:'BOOT  am-switch-core v0.1.0-demo · pure user-mode process',
+  logHook:'HOOK  SetWinEventHook · EVENT_SYSTEM_FOREGROUND hooked (event-driven · zero polling)',
+  logEnum:'HID   enumerating vendor config interfaces · 3 online / BD75 offline',
+  logRules:'RULE  loaded rules.json · {n} rules + default fallback',
+  logFg:'HOOK  EVENT_SYSTEM_FOREGROUND · {exe} (pid {pid})',
+  logFgExit:'HOOK  EVENT_SYSTEM_FOREGROUND · explorer.exe (game exited)',
+  logFgSelf:'HOOK  foreground is now am-app-switch.exe · own event ignored, reading recent history instead',
+  logHit:'RULE  hit rule:{id} ({kind}) · resolving per-device targets',
+  logMiss:'RULE  no match · using default profiles',
+  logFallback:'RULE  no match · falling back to default',
+  logNoop:'HID   all devices already on default · nothing to do',
+  logTransient:'HID   transient connection: open → changeProfile → verify → close (handle held <200ms)',
+  logSkip:'{dev} SKIP · device offline, silently skipped, no error',
+  logDup:'{dev} already on "{p}" · deduped, no rewrite',
+  logSwitch:'{dev} {verb} "{from}" → "{to}" · verify ✓ · {ms}ms',
+  logPlug:'PLUG  DBT_DEVICEARRIVAL · BD75 connected · profile list read transiently, handle released',
+  logUnplug:'PLUG  DBT_DEVICEREMOVECOMPLETE · BD75 unplugged · handle closed, marked offline',
+  logRePlug:'RULE  rule:{id} is active · auto re-applying BD75',
+  logPlugIdle:'BD75  ready · no active rule applies, staying on "{p}"',
+  logEnabled:'RULE  rule:{id} enabled', logDisabled:'RULE  rule:{id} disabled',
+  logSaved:'RULE  rule:{id} · {dev} → "{p}" · saved',
+  logManual:'RULE  manual exe pick · {path}',
+  logCovered:'RULE  {exe} is already covered by rule:{id} · no duplicate created, jumped to it',
+  logAdded:'RULE  added rule:{id} · written to rules.json · all devices on Default for now — configure in the rule row below',
+  logDiagOk:'DIAG  diagnostics copied to clipboard', logDiagFail:'DIAG  copy failed (demo sandbox)',
+  logLang:'I18N  UI language → English',
+}};
+let lang = localStorage.getItem('amswitch-lang') || 'zh';
+const t = (k, vars) => {
+  let s = (I18N[lang] && I18N[lang][k]) ?? I18N.zh[k] ?? k;
+  if(vars) for(const x in vars) s = s.replaceAll('{'+x+'}', vars[x]);
+  return s;
+};
+/* 模拟数据的显示名随语言走：配置名 / 规则名 / 设备类别 */
+const pf = p => lang==='en' ? (PROFILE_EN[p]||p) : p;
+const rn = r => lang==='en' ? (r.nameEn||r.name) : r.name;
+const dt_ = d => lang==='en' ? d.typeEn : d.type;
+
 /* 最近前台程序历史：由 FOREGROUND 事件流持续维护，排除自身与桌面。
    关键边界：点「添加游戏」时本工具必然处于前台，直接取「当前前台」必然取到自己 → 取历史 */
 let fgHistory = [];
-function noteFg(exe, title){
+function noteFg(exe, title, titleEn){
   if(exe==='explorer.exe' || exe==='am-app-switch.exe') return;
   fgHistory = fgHistory.filter(f=>f.exe!==exe);
-  fgHistory.unshift({exe, title, t:Date.now()});
+  fgHistory.unshift({exe, title, titleEn:titleEn||title, t:Date.now()});
   if(fgHistory.length>10) fgHistory.length = 10;
 }
-function ago(t){
-  const s = Math.round((Date.now()-t)/1000);
-  if(s<8) return '刚刚';
-  if(s<60) return `${s} 秒前`;
-  return `${Math.round(s/60)} 分钟前`;
+function ago(ts){
+  const s = Math.round((Date.now()-ts)/1000);
+  if(s<8) return t('agoJust');
+  if(s<60) return t('agoS',{s});
+  return t('agoM',{m:Math.round(s/60)});
 }
 
 const $ = id => document.getElementById(id);
@@ -498,11 +673,15 @@ function logLine(msg, cls=''){
   if(cur) cur.remove();
   const line = document.createElement('div');
   line.className = 'logline ' + cls;
-  line.innerHTML = `<span class="t">[${stamp()}]</span> <span class="m">${msg}</span>`;
+  const ts = document.createElement('span'); ts.className = 't'; ts.textContent = `[${stamp()}] `;
+  const m = document.createElement('span'); m.className = 'm'; m.textContent = msg;
+  line.appendChild(ts); line.appendChild(m);
   log.appendChild(line);
   const c = document.createElement('div');
   c.className = 'logline cursor-line';
-  c.innerHTML = `<span class="t">[${stamp()}]</span> <span class="cursor"></span>`;
+  const ts2 = document.createElement('span'); ts2.className = 't'; ts2.textContent = `[${stamp()}] `;
+  const cur2 = document.createElement('span'); cur2.className = 'cursor';
+  c.appendChild(ts2); c.appendChild(cur2);
   log.appendChild(c);
   log.scrollTop = log.scrollHeight;
 }
@@ -511,19 +690,19 @@ function logLine(msg, cls=''){
 function renderPipeline(hotId){
   const f = state.fg;
   $('pv-fg').textContent = f.exe;
-  $('pv-fg-sub').textContent = f.desktop ? '桌面 · 未命中任何规则' : f.title;
+  $('pv-fg-sub').textContent = f.desktop ? t('fgDesktopSub') : (lang==='en' ? (f.titleEn||f.title) : f.title);
   const r = state.activeRule;
-  $('pv-rule').textContent = r ? r.name : '默认配置';
-  $('pv-rule-sub').textContent = r ? `rule:${r.game_id} · ${r.preset?'预置':'我的'}` : '无规则命中 · 全部设备回落';
+  $('pv-rule').textContent = r ? rn(r) : t('ruleNone');
+  $('pv-rule-sub').textContent = r ? `rule:${r.game_id} · ${r.preset?t('kindPre'):t('kindMine')}` : t('ruleNoneSub');
   const online = DEVICES.filter(d=>d.online).length;
-  $('pv-dev-sub').textContent = `${DEVICES.length} 台登记 · ${online} 台在线`;
+  $('pv-dev-sub').textContent = t('devCount',{n:DEVICES.length, m:online});
   ['pn-fg','pn-rule','pn-dev'].forEach(id=>$(id).classList.toggle('hot', id===hotId));
   if(r){
-    $('hs-main').textContent = `「${r.name}」规则生效中`;
-    $('hs-sub').textContent = `退出游戏后，全部设备自动回到默认配置`;
+    $('hs-main').textContent = t('heroActive',{name:rn(r)});
+    $('hs-sub').textContent = t('heroActiveSub');
   }else{
-    $('hs-main').textContent = '待命 · 全部设备处于默认配置';
-    $('hs-sub').textContent = 'AM App Switch 正在后台监听前台程序';
+    $('hs-main').textContent = t('heroIdle');
+    $('hs-sub').textContent = t('heroIdleSub');
   }
 }
 function renderDevList(){
@@ -531,9 +710,9 @@ function renderDevList(){
     <div class="dev-row ${d.online?'':'offline'}" id="row-${d.id}">
       <span class="dot ${d.online?'':'off'}"></span>
       <span class="dev-name">${d.name}</span>
-      <span class="dev-type">${d.type}</span>
-      <span><span class="profile-pill" id="pill-${d.id}">${d.online?d.profiles[d.cur]:'—'}</span></span>
-      <span class="res-chip ${d.online?'':'warn'}" id="res-${d.id}">${d.online?'就绪':'离线 · 不枚举'}</span>
+      <span class="dev-type">${dt_(d)}</span>
+      <span><span class="profile-pill" id="pill-${d.id}">${d.online?pf(d.profiles[d.cur]):'—'}</span></span>
+      <span class="res-chip ${d.online?'':'warn'}" id="res-${d.id}">${d.online?t('resReady'):t('resOffline')}</span>
     </div>`).join('');
 }
 function setRes(id, text, cls){
@@ -542,29 +721,29 @@ function setRes(id, text, cls){
 }
 function setPill(id){
   const d = dev(id), el = $('pill-'+id);
-  if(el && d.online) el.textContent = d.profiles[d.cur];
+  if(el && d.online) el.textContent = pf(d.profiles[d.cur]);
 }
 
 /* ================= 渲染：默认配置 & 规则页 ================= */
 function renderDefaultSlots(){
   $('default-slots').innerHTML = DEVICES.map(d=>
-    `<span class="dslot"><b>${d.name}</b> → ${d.profiles[DEFAULT_PROFILE]}</span>`).join('');
+    `<span class="dslot"><b>${d.name}</b> → ${pf(d.profiles[DEFAULT_PROFILE])}</span>`).join('');
 }
 function mapChips(r){
   return Object.keys(r.apply).map(id=>{
     const d = dev(id);
-    return `<span class="map-chip"><b>${d.short}</b> ${d.profiles[r.apply[id]]}</span>`;
+    return `<span class="map-chip"><b>${d.short}</b> ${pf(d.profiles[r.apply[id]])}</span>`;
   }).join('');
 }
 function profileOptions(d, selected){
-  return d.profiles.map((p,i)=>`<option value="${i}" ${i===selected?'selected':''}>${p}</option>`).join('');
+  return d.profiles.map((p,i)=>`<option value="${i}" ${i===selected?'selected':''}>${pf(p)}</option>`).join('');
 }
 function renderRules(openId){
   $('rule-list').innerHTML = rules.map((r,ri)=>{
     const bodyRows = Object.keys(r.apply).map(id=>{
       const d = dev(id);
       return `<tr>
-        <td class="rb-dev">${d.name}${d.online?'':'<span class="off">离线 · 将跳过</span>'}</td>
+        <td class="rb-dev">${d.name}${d.online?'':'<span class="off">'+t('offSkip')+'</span>'}</td>
         <td><select class="profile-select" data-rule="${r.game_id}" data-dev="${id}">${profileOptions(d, r.apply[id])}</select></td>
       </tr>`;
     }).join('');
@@ -573,7 +752,7 @@ function renderRules(openId){
       ${ri===0?'<span class="pin" style="top:9px;right:30px">1</span>':''}
       <div class="rule-head ${r.enabled?'':'disabled'}">
         <span class="tgl ${r.enabled?'on':''}" data-toggle="${r.game_id}" tabindex="0"><svg viewBox="0 0 10 10"><path d="M1.5 5.5l2.5 2.5 4.5-5"/></svg></span>
-        <div class="rname">${r.name}<span class="badge ${r.preset?'pre':'mine'}">${r.preset?'预置':'我的'}</span></div>
+        <div class="rname">${rn(r)}<span class="badge ${r.preset?'pre':'mine'}">${r.preset?t('badgePre'):t('badgeMine')}</span></div>
         <div class="rexe">${r.match.join(' · ')}</div>
         <div class="rmap">${mapChips(r)}</div>
         <svg class="chev" width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 3.5L5 7l3.5-3.5" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>
@@ -581,48 +760,49 @@ function renderRules(openId){
       <div class="rule-body">
         <div>
           <table class="rb-table">
-            <thead><tr><th>设备</th><th>进入 ${r.name} 时切到</th></tr></thead>
+            <thead><tr><th>${t('thDevice')}</th><th>${t('thEnter',{name:rn(r)})}</th></tr></thead>
             <tbody>${bodyRows}</tbody>
           </table>
         </div>
-        <div class="rb-note">配置列表实时读自设备板载（各设备配置数可以不一致）· 写操作仅 <b>changeProfile</b> 一条 · 改动即时保存 · 退出游戏永远回落默认配置</div>
+        <div class="rb-note">${t('rbNote')}</div>
       </div>
     </div>`;
   }).join('');
 }
 
 /* ================= 切换编排（模拟） ================= */
-async function switchOne(d, to, verb){
+async function switchOne(d, to, verbKey){
+  const verb = t(verbKey);
   const pill = $('pill-'+d.id), row = $('row-'+d.id);
   pill.classList.add('busy'); pill.classList.remove('ok');
-  setRes(d.id,'切换中…','');
+  setRes(d.id, t('resBusy'), '');
   await sleep(rand(200,340));
-  const fromName = d.profiles[d.cur];
+  const fromName = pf(d.profiles[d.cur]);
   d.cur = to; setPill(d.id);
   const ms = Math.round(rand(88,156));
   pill.classList.remove('busy'); pill.classList.add('ok');
   row.classList.remove('flash'); void row.offsetWidth; row.classList.add('flash');
   setRes(d.id, `${verb} · ${ms}ms`, 'ok');
-  logLine(`${d.short.padEnd(6)} ${verb}「${fromName}」→「${d.profiles[to]}」 · verify ✓ · ${ms}ms`, 'ok');
+  logLine(t('logSwitch',{dev:d.short.padEnd(6), verb, from:fromName, to:pf(d.profiles[to]), ms}), 'ok');
   setTimeout(()=>pill.classList.remove('ok'), 2200);
 }
-async function runCascade(plan, verb){
-  logLine(`HID   瞬态连接：open → changeProfile → verify → close（单次占用 &lt;200ms）`, '');
+async function runCascade(plan, verbKey){
+  logLine(t('logTransient'), '');
   let first = true;
   for(const {d, to} of plan){
     if(!d.online){
-      setRes(d.id,'跳过 · 离线','warn');
-      logLine(`${d.short.padEnd(6)} SKIP · 设备离线，静默跳过不弹错`, 'warn');
+      setRes(d.id, t('resSkip'), 'warn');
+      logLine(t('logSkip',{dev:d.short.padEnd(6)}), 'warn');
       continue;
     }
     if(d.cur === to){
-      setRes(d.id,'已是目标配置','');
-      logLine(`${d.short.padEnd(6)} 已是「${d.profiles[to]}」 · 去重不重复写`, '');
+      setRes(d.id, t('resAlready'), '');
+      logLine(t('logDup',{dev:d.short.padEnd(6), p:pf(d.profiles[to])}), '');
       continue;
     }
     if(!first) await sleep(rand(90,150));
     first = false;
-    await switchOne(d, to, verb);
+    await switchOne(d, to, verbKey);
   }
 }
 function setSimButtons(){
@@ -636,17 +816,17 @@ async function launch(key){
   state.busy = true; setSimButtons();
   const g = GAMES[key];
   const pid = Math.round(rand(10000,28000));
-  state.fg = {exe:g.exe, title:g.title, desktop:false};
+  state.fg = {exe:g.exe, title:g.title, titleEn:g.titleEn, desktop:false};
   renderPipeline('pn-fg');
-  logLine(`HOOK  EVENT_SYSTEM_FOREGROUND · ${g.exe} (pid ${pid})`);
-  noteFg(g.exe, g.title);
+  logLine(t('logFg',{exe:g.exe, pid}));
+  noteFg(g.exe, g.title, g.titleEn);
   await sleep(rand(280,380));
   const prev = state.activeRule;
   const rule = rules.find(r=>r.enabled && r.match.includes(g.exe)) || null;
   state.activeRule = rule;
   renderPipeline('pn-rule');
-  logLine(rule ? `RULE  命中 rule:${rule.game_id}（${rule.preset?'预置':'我的'}）· 逐设备解析目标配置`
-               : `RULE  未命中 · 使用默认配置`, rule ? '' : 'warn');
+  logLine(rule ? t('logHit',{id:rule.game_id, kind:rule.preset?t('kindPre'):t('kindMine')})
+               : t('logMiss'), rule ? '' : 'warn');
   await sleep(rand(240,320));
   renderPipeline('pn-dev');
   const plan = [];
@@ -654,31 +834,31 @@ async function launch(key){
     if(rule && rule.apply[d.id]!=null) plan.push({d, to:rule.apply[d.id]});
     else if(prev && prev.apply[d.id]!=null) plan.push({d, to:DEFAULT_PROFILE}); /* 旧规则有、新规则没有 → 回默认 */
   }
-  await runCascade(plan, '切换');
-  $('pv-dev').textContent = '已就位';
+  await runCascade(plan, 'vSwitch');
+  $('pv-dev').textContent = t('devInPlace');
   renderPipeline('pn-dev');
   state.busy = false; setSimButtons();
 }
 async function exitGame(){
   if(state.busy) return;
   state.busy = true; setSimButtons();
-  state.fg = {exe:'explorer.exe', title:'桌面', desktop:true};
+  state.fg = {exe:'explorer.exe', title:'桌面', titleEn:'Desktop', desktop:true};
   renderPipeline('pn-fg');
-  logLine(`HOOK  EVENT_SYSTEM_FOREGROUND · explorer.exe（游戏已退出）`);
+  logLine(t('logFgExit'));
   await sleep(rand(280,380));
   const prev = state.activeRule;
   state.activeRule = null;
   renderPipeline('pn-rule');
-  logLine(`RULE  未命中 · 回落到默认配置`, 'warn');
+  logLine(t('logFallback'), 'warn');
   await sleep(rand(240,320));
   renderPipeline('pn-dev');
   if(prev){
     const plan = DEVICES.filter(d=>prev.apply[d.id]!=null).map(d=>({d, to:DEFAULT_PROFILE}));
-    await runCascade(plan, '回落');
+    await runCascade(plan, 'vFallback');
   } else {
-    logLine(`HID   全部设备已在默认配置 · 无需动作`, '');
+    logLine(t('logNoop'), '');
   }
-  $('pv-dev').textContent = '待命';
+  $('pv-dev').textContent = t('devStandby');
   renderPipeline(null);
   state.busy = false; setSimButtons();
 }
@@ -689,22 +869,22 @@ async function toggleBd75(){
   if(!d.online){
     d.online = true;
     renderDevList(); renderRules(currentOpenRule()); renderPipeline(null);
-    logLine(`PLUG  DBT_DEVICEARRIVAL · BD75 接入 · 瞬态读取配置清单后释放句柄`, 'ok');
+    logLine(t('logPlug'), 'ok');
     await sleep(rand(320,420));
     const r = state.activeRule;
     if(r && r.apply.bd75!=null){
-      logLine(`RULE  当前处于 rule:${r.game_id} · 对 BD75 自动补切`, '');
-      await switchOne(d, r.apply.bd75, '补切');
+      logLine(t('logRePlug',{id:r.game_id}), '');
+      await switchOne(d, r.apply.bd75, 'vReapply');
     } else {
-      setRes('bd75','就绪','ok');
-      logLine(`BD75  就绪 · 当前无适用规则，维持「${d.profiles[d.cur]}」`, '');
+      setRes('bd75', t('resReady'), 'ok');
+      logLine(t('logPlugIdle',{p:pf(d.profiles[d.cur])}), '');
     }
-    $('btn-bd75').textContent = '拔出 BD75';
+    $('btn-bd75').textContent = t('simBd75Out');
   } else {
     d.online = false;
     renderDevList(); renderRules(currentOpenRule()); renderPipeline(null);
-    logLine(`PLUG  DBT_DEVICEREMOVECOMPLETE · BD75 拔出 · 句柄已关闭，标记离线`, 'warn');
-    $('btn-bd75').textContent = '插入 BD75';
+    logLine(t('logUnplug'), 'warn');
+    $('btn-bd75').textContent = t('simBd75In');
   }
   state.busy = false; setSimButtons();
 }
@@ -720,35 +900,51 @@ const findRuleByExe = exe => rules.find(r=>r.match.some(m=>m.toLowerCase()===exe
 function syncSaveBtn(){
   const pick = document.querySelector('input[name="fgpick"]:checked');
   const btn = $('modal-save');
-  if(!pick || pick.value==='__manual__'){ btn.disabled = true; btn.textContent = '添加'; return; }
+  if(!pick || pick.value==='__manual__'){ btn.disabled = true; btn.textContent = t('mAdd'); return; }
   btn.disabled = false;
-  btn.textContent = findRuleByExe(pick.value) ? '查看规则' : '添加';
+  btn.textContent = findRuleByExe(pick.value) ? t('mView') : t('mAdd');
 }
-function openModal(){
-  logLine(`HOOK  前台变为 am-app-switch.exe · 自身事件忽略，改取最近前台历史`, '');
+/* demo 里模拟系统文件选择器的结果：正式实现调 Win32 GetOpenFileName（.exe 过滤） */
+let manualPick = null;
+function renderCapBox(selVal){
   const box = $('cap-box');
+  const prev = selVal ?? document.querySelector('input[name="fgpick"]:checked')?.value;
   let html;
   if(!fgHistory.length){
-    html = `<div class="ck">选择要绑定的程序</div>
-      <div class="cv cap-empty" style="margin-top:6px">还没记录到任何前台程序——热门游戏多半已被预置规则覆盖；不在其中的，玩一次再来，或直接手动选择：</div>`;
+    html = `<div class="ck">${t('capEmptyK')}</div>
+      <div class="cv cap-empty" style="margin-top:6px">${t('capEmptyV')}</div>`;
   } else {
-    html = `<div class="ck">从最近前台程序中选择 · 默认选中「上一个」</div>` + fgHistory.map((f,i)=>{
+    html = `<div class="ck">${t('capHistK')}</div>` + fgHistory.map((f,i)=>{
       const covered = findRuleByExe(f.exe);
+      const ftitle = lang==='en' ? (f.titleEn||f.title) : f.title;
       return `<label class="fg-opt ${i===0?'sel':''}">
-        <input type="radio" name="fgpick" value="${f.exe}" data-title="${f.title||''}" ${i===0?'checked':''}>
-        <span><span class="fe">${f.exe}</span><span class="ft">${f.title||''}</span></span>
-        ${covered?`<span class="added-tag">已添加</span>`:''}
+        <input type="radio" name="fgpick" value="${f.exe}" data-title="${f.title||''}" data-title-en="${f.titleEn||''}" ${i===0?'checked':''}>
+        <span><span class="fe">${f.exe}</span><span class="ft">${ftitle}</span></span>
+        ${covered?`<span class="added-tag">${t('addedTag')}</span>`:''}
         <span class="ago">${ago(f.t)}</span>
       </label>`;
     }).join('');
   }
   /* 冷启动兜底：手动选择 exe，永远可用 */
+  const mp = manualPick;
   html += `<label class="fg-opt manual" id="fg-manual">
-      <input type="radio" name="fgpick" value="__manual__" data-title="">
-      <span><span class="fe">手动选择 exe…</span><span class="ft">游戏还没运行过也能配</span></span>
+      <input type="radio" name="fgpick" value="${mp?mp.exe:'__manual__'}" data-title="${mp?mp.title:''}" data-title-en="${mp?mp.titleEn:''}">
+      <span><span class="fe">${mp?mp.exe:t('manualExe')}</span><span class="ft">${mp?(lang==='en'?mp.titleEn:mp.title)+' · '+t('manualPicked'):t('manualExeSub')}</span></span>
     </label>`;
   box.innerHTML = html;
+  /* 恢复/建立选中态 */
+  let target = prev && [...box.querySelectorAll('input[name="fgpick"]')].find(i=>i.value===prev);
+  if(!target) target = box.querySelector('input[name="fgpick"]');
+  if(target && target.value!=='__manual__'){
+    box.querySelectorAll('.fg-opt').forEach(x=>x.classList.remove('sel'));
+    target.checked = true;
+    target.closest('.fg-opt').classList.add('sel');
+  }
   syncSaveBtn();
+}
+function openModal(){
+  logLine(t('logFgSelf'), '');
+  renderCapBox();
   $('overlay').classList.add('on');
 }
 $('cap-box').addEventListener('change', e=>{
@@ -757,20 +953,14 @@ $('cap-box').addEventListener('change', e=>{
   if(opt) opt.classList.add('sel');
   syncSaveBtn();
 });
-/* demo 里模拟系统文件选择器：正式实现调 Win32 GetOpenFileName（.exe 过滤） */
 $('cap-box').addEventListener('click', e=>{
   const m = e.target.closest('#fg-manual');
   if(!m) return;
   const input = m.querySelector('input');
   if(input.value !== '__manual__') return;
-  input.value = 'StellarBlade.exe';
-  input.dataset.title = '剑星';
-  m.querySelector('.fe').textContent = 'StellarBlade.exe';
-  m.querySelector('.ft').textContent = '剑星 · 手动选择';
-  m.classList.add('sel');
-  input.checked = true;
-  syncSaveBtn();
-  logLine(`RULE  手动选择 exe · C:\\SteamLibrary\\steamapps\\common\\StellarBlade\\StellarBlade.exe`, '');
+  manualPick = {exe:'StellarBlade.exe', title:'剑星', titleEn:'Stellar Blade'};
+  renderCapBox('StellarBlade.exe');
+  logLine(t('logManual',{path:'C:\\SteamLibrary\\steamapps\\common\\StellarBlade\\StellarBlade.exe'}), '');
 });
 function closeModal(){ $('overlay').classList.remove('on'); }
 function jumpToRule(gid){
@@ -789,10 +979,10 @@ function saveModal(){
   if(exists){
     closeModal();
     jumpToRule(exists.game_id);
-    logLine(`RULE  ${exe} 已被 rule:${exists.game_id} 覆盖 · 不新建，已定位到已有规则`, 'warn');
+    logLine(t('logCovered',{exe, id:exists.game_id}), 'warn');
     return;
   }
-  const rec = fgHistory.find(x=>x.exe===exe) || {title:''};
+  const rec = fgHistory.find(x=>x.exe===exe) || {title:'', titleEn:''};
   /* id 冲突保护：同 slug 不同 exe 时自动加后缀 */
   const base = exe.replace(/\.exe$/i,'').toLowerCase();
   let gid = base, n = 2;
@@ -800,10 +990,11 @@ function saveModal(){
   /* 新规则出生时每台设备都指向默认配置；配什么在规则行里改——配置只有这一个入口 */
   const apply = {};
   DEVICES.forEach(d=>{ apply[d.id] = DEFAULT_PROFILE; });
-  rules.unshift({game_id:gid, name:pick.dataset.title||rec.title||gid, match:[exe], preset:false, enabled:true, apply});
+  rules.unshift({game_id:gid, name:pick.dataset.title||rec.title||gid, nameEn:pick.dataset.titleEn||rec.titleEn||pick.dataset.title||rec.title||gid,
+    match:[exe], preset:false, enabled:true, apply});
   closeModal();
   jumpToRule(gid);
-  logLine(`RULE  新增 rule:${gid} · 已写入 rules.json · 全部设备暂为默认配置，在下方规则行里配置`, 'ok');
+  logLine(t('logAdded',{id:gid}), 'ok');
 }
 
 /* ================= 页签 / 注释 / 开关 ================= */
@@ -818,19 +1009,19 @@ $('tabs').addEventListener('click', e=>{
 document.querySelectorAll('.anno').forEach(a=>{
   a.addEventListener('click', ()=>{
     switchTab(a.dataset.goto);
-    const t = $(a.dataset.flash);
-    if(t){
+    const el = $(a.dataset.flash);
+    if(el){
       setTimeout(()=>{
-        t.classList.remove('flash-target'); void t.offsetWidth; t.classList.add('flash-target');
-        t.scrollIntoView({behavior:'smooth', block:'nearest'});
+        el.classList.remove('flash-target'); void el.offsetWidth; el.classList.add('flash-target');
+        el.scrollIntoView({behavior:'smooth', block:'nearest'});
       }, 80);
     }
   });
 });
-document.querySelectorAll('.set-row .tgl').forEach(t=>{
-  const flip = ()=>t.classList.toggle('on');
-  t.addEventListener('click', flip);
-  t.addEventListener('keydown', e=>{ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); flip(); }});
+document.querySelectorAll('.set-row .tgl').forEach(tg=>{
+  const flip = ()=>tg.classList.toggle('on');
+  tg.addEventListener('click', flip);
+  tg.addEventListener('keydown', e=>{ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); flip(); }});
 });
 
 /* 规则页交互（事件委托） */
@@ -842,7 +1033,7 @@ $('rule-list').addEventListener('click', e=>{
     r.enabled = !r.enabled;
     tgl.classList.toggle('on', r.enabled);
     tgl.closest('.rule-head').classList.toggle('disabled', !r.enabled);
-    logLine(`RULE  rule:${r.game_id} ${r.enabled?'已启用':'已停用'}`, r.enabled?'ok':'warn');
+    logLine(t(r.enabled?'logEnabled':'logDisabled',{id:r.game_id}), r.enabled?'ok':'warn');
     return;
   }
   const head = e.target.closest('.rule-head');
@@ -861,10 +1052,10 @@ $('rule-list').addEventListener('change', async e=>{
   const to = +sel.value;
   r.apply[d.id] = to;
   renderRules(r.game_id);
-  logLine(`RULE  rule:${r.game_id} · ${d.short} → 「${d.profiles[to]}」 · 已保存`, '');
+  logLine(t('logSaved',{id:r.game_id, dev:d.short, p:pf(d.profiles[to])}), '');
   /* 改的正是正在生效的规则 → 该设备立即补切，所见即所得 */
   if(state.activeRule===r && d.online && d.cur!==to){
-    await switchOne(d, to, '补切');
+    await switchOne(d, to, 'vReapply');
     renderDevList(); renderRules(r.game_id);
   }
 });
@@ -889,9 +1080,9 @@ $('btn-diag').addEventListener('click', async ()=>{
   };
   try{
     await navigator.clipboard.writeText(JSON.stringify(payload,null,2));
-    logLine(`DIAG  诊断信息已复制到剪贴板`,'ok');
+    logLine(t('logDiagOk'),'ok');
   }catch(e){
-    logLine(`DIAG  复制失败（demo 环境限制）`,'warn');
+    logLine(t('logDiagFail'),'warn');
   }
 });
 
@@ -901,15 +1092,35 @@ $('btn-val').addEventListener('click', ()=>launch('val'));
 $('btn-exit').addEventListener('click', exitGame);
 $('btn-bd75').addEventListener('click', toggleBd75);
 
+/* ================= 语言切换 ================= */
+function applyLang(){
+  document.documentElement.lang = lang==='zh' ? 'zh-CN' : 'en';
+  document.title = t('docTitle');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{ el.innerHTML = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{ el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+  $('btn-lang').textContent = lang==='zh' ? 'EN' : '中';
+  $('btn-bd75').textContent = dev('bd75').online ? t('simBd75Out') : t('simBd75In');
+  $('pv-dev').textContent = state.activeRule ? t('devInPlace') : t('devStandby');
+  renderPipeline(null);
+  renderDevList();
+  renderDefaultSlots();
+  renderRules(currentOpenRule());
+  if($('overlay').classList.contains('on')) renderCapBox();
+  else syncSaveBtn();
+}
+$('btn-lang').addEventListener('click', ()=>{
+  lang = lang==='zh' ? 'en' : 'zh';
+  localStorage.setItem('amswitch-lang', lang);
+  applyLang();
+  logLine(t('logLang'), '');
+});
+
 /* ================= 启动 ================= */
-renderPipeline(null);
-renderDevList();
-renderDefaultSlots();
-renderRules('cs2');
-logLine(`BOOT  am-switch-core v0.1.0-demo · 纯用户态进程`, '');
-logLine(`HOOK  SetWinEventHook · EVENT_SYSTEM_FOREGROUND 已挂接（事件驱动 · 零轮询）`, 'ok');
-logLine(`HID   枚举厂商配置接口 · 3 台在线 / BD75 离线`, '');
-logLine(`RULE  加载 rules.json · ${rules.length} 条规则 + 默认配置回落`, 'ok');
+applyLang();
+logLine(t('logBoot'), '');
+logLine(t('logHook'), 'ok');
+logLine(t('logEnum'), '');
+logLine(t('logRules',{n:rules.length}), 'ok');
 </script>
 </body>
 </html>
