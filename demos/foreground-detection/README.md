@@ -1,27 +1,29 @@
-# AM 前台应用检测 Demo（M0 验证件 #1）
+# AM Foreground-App Detection Demo (M0 Proof #1)
 
-对应《AM Profile Switch 初期 PRD》的 **F1 前台应用检测**：用 `SetWinEventHook` 监听 `EVENT_SYSTEM_FOREGROUND`，**事件驱动、零轮询**，前台窗口一切换就实时打印应用名。
+**English** | [简体中文](README.zh-CN.md)
 
-源码已通过对 Windows 目标（`x86_64-pc-windows-gnu`）的编译验证，零警告。
+Implements **F1 foreground-app detection** from the AM Profile Switch PRD: listens for `EVENT_SYSTEM_FOREGROUND` via `SetWinEventHook` — **event-driven, zero polling** — and prints the foreground app name in real time on every window switch.
 
-## 环境准备（仅需一次）
+The source compiles cleanly for the Windows target (`x86_64-pc-windows-gnu`) with zero warnings.
 
-在 Windows 10/11 上安装 Rust（约 2 分钟）：
+## Setup (one-time)
+
+Install Rust on Windows 10/11 (~2 minutes):
 
 ```powershell
 winget install Rustlang.Rustup
 ```
 
-或打开 https://rustup.rs 下载运行。装完重开终端。
+Or download and run https://rustup.rs. Restart the terminal afterwards.
 
-## 运行
+## Run
 
 ```powershell
 cd am-foreground-demo
 cargo run --release
 ```
 
-首次运行会下载依赖并编译（约 1 分钟）。之后随便切换窗口，终端实时输出：
+The first run downloads dependencies and compiles (~1 minute). Then switch between windows and the terminal prints in real time:
 
 ```
 AM 前台检测 Demo —— 切换任意窗口试试（Ctrl+C 退出）
@@ -32,32 +34,34 @@ AM 前台检测 Demo —— 切换任意窗口试试（Ctrl+C 退出）
 [#  4 |   12.1s] cs2.exe                  pid=15204  Counter-Strike 2
 ```
 
-## 这个 demo 验证什么
+(The demo's own output is in Chinese — that first line is what the binary prints.)
 
-| 验证点 | 怎么看 |
-|--------|--------|
-| 检测即时性 | 点一下别的窗口，终端**立刻**打印，无轮询延迟 |
-| 资源占用 | 挂着不动，任务管理器看 CPU ≈ 0%、内存 ≈ 1–2MB（纯原生无 UI） |
-| exe 名获取 | 第三列即为规则引擎要匹配的 key |
-| 管理员权限游戏 | 用管理员身份跑个游戏切过去：exe 名仍能读到（`PROCESS_QUERY_LIMITED_INFORMATION` 跨权限可读）；个别读不到的进程会显示 `<未知>`，正式版降级为进程名匹配 |
-| 事件风暴 | 快速 Alt+Tab 连切，每次前台变化只打一行——正式版在此基础上加防抖去重 |
+## What this demo validates
 
-## 与正式版的边界（本 demo 刻意不做）
+| Checkpoint | How to see it |
+|------------|---------------|
+| Detection immediacy | Click another window — the terminal prints **instantly**, no polling delay |
+| Resource usage | Leave it running: Task Manager shows CPU ≈ 0%, RAM ≈ 1–2 MB (pure native, no UI) |
+| exe name capture | The third column is exactly the key the rule engine will match on |
+| Games running as admin | Launch a game as administrator and switch to it: the exe name is still readable (`PROCESS_QUERY_LIMITED_INFORMATION` works across privilege levels); the rare unreadable process shows `<未知>` — the release version falls back to process-name matching |
+| Event storms | Rapid Alt+Tab: one line per actual foreground change — the release version adds debouncing on top |
 
-- 规则匹配与配置切换（F2/F4，M1 范围）
-- 防抖去重、托盘常驻、最小化到后台
-- 这些都是确定能做的事，不属于 M0 要排的技术风险
+## Scope boundary (deliberately not in this demo)
 
-## 文件说明
+- Rule matching and profile switching (F2/F4, M1 scope)
+- Debouncing, tray residence, minimize-to-background
+- These are known-solvable and not among the technical risks M0 must retire
+
+## Files
 
 ```
 am-foreground-demo/
-├── Cargo.toml      # 依赖：windows crate 0.62（微软官方 Rust 绑定）
-└── src/main.rs     # 全部逻辑，约 100 行，含逐行注释
+├── Cargo.toml      # Dependency: the windows crate 0.62 (Microsoft's official Rust bindings)
+└── src/main.rs     # All logic, ~100 lines, commented line by line
 ```
 
-## 常见问题
+## FAQ
 
-- **杀毒软件报警？** 源码全透明，可让安全团队 review；正式版会做 EV 代码签名。
-- **能直接出 exe 吗？** 在有 Rust 环境的机器上 `cargo build --release`，产物在 `target/release/am-foreground-demo.exe`，单文件、免安装、拷走即用。
-- **为什么不用 Python/PS 快速糊一个？** 轮询式 demo 无法验证「事件驱动 + 零开销」这个核心架构决策，而这个决策决定了正式版的资源占用表现。
+- **Antivirus flags it?** The source is fully transparent — have your security team review it; the release build will be EV code-signed.
+- **Can I get an exe directly?** On any machine with Rust: `cargo build --release` → `target/release/am-foreground-demo.exe` — single file, portable, no install.
+- **Why not hack it together in Python/PowerShell?** A polling-based demo can't validate the core architecture decision — event-driven with zero overhead — and that decision is what determines the release version's resource footprint.

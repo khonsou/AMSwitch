@@ -1,9 +1,11 @@
-# GUI 交互稿
+# GUI Interactive Mock
 
-单文件 H5 demo，浏览器直接打开 `index.html` 即可，所有按钮可点（数据为模拟）。
+**English** | [简体中文](README.zh-CN.md)
 
-界面中英双语：标题栏 `EN/中` 切换，选择持久化；动态日志与模拟数据（配置名、游戏名）同样双语——海外评审可直接用英文走完整流程。
+A single-file H5 demo — open `index.html` in any browser and every button works (all data is simulated).
 
-覆盖的交互：规则两层模型（游戏 → 每台设备各切到一个板载配置）、退出回默认、离线设备静默跳过与插入补切、添加游戏（三层来源 + exe 查重）、生效中改配置立即补切、诊断信息一键复制。
+The UI is bilingual: toggle `EN/中` in the title bar, persisted across reloads. Dynamic logs and mock data (profile names, game titles) are bilingual too — overseas reviewers can walk the full flow in English.
 
-页面顶部有四步引导，右侧注释栏说明每个设计决策对应的 PRD 条款。
+Interactions covered: the two-layer rule model (game → each device switches to its assigned onboard profile), fall back to default on game exit, offline devices silently skipped and re-switched when plugged in, adding a game (three-layer sources + exe dedupe), live re-switch when editing the active rule, deleting rules (always-visible ✕ on the row head, two-step inline confirm; deleting the active rule falls back to default immediately), one-click diagnostics copy.
+
+A four-step guide sits at the top of the page; the annotation column on the right maps each design decision to its PRD clause.
